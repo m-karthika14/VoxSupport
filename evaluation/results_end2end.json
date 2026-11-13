@@ -1,0 +1,12 @@
+{
+  "mode": "llm",
+  "answerable_n": 40,
+  "negative_n": 6,
+  "answered_rate": 0.975,
+  "citation_correct_rate": 0.95,
+  "mean_groundedness": 0.8250422982069162,
+  "hallucination_rate": 0.0,
+  "negative_handled_rate": 1.0,
+  "latency_ms_p50": 9069.1,
+  "latency_ms_p95": 12563.9
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "strategy": "fixed",
+    "rerank": true,
+    "n": 40,
+    "hit@1": 0.65,
+    "hit@4": 0.875,
+    "mrr@10": 0.7322916666666667,
+    "latency_ms": 1360.6972825000412
+  },
+  {
+    "strategy": "overlap",
+    "rerank": true,
+    "n": 40,
+    "hit@1": 0.65,
+    "hit@4": 0.9,
+    "mrr@10": 0.7717261904761905,
+    "latency_ms": 978.3135524987301
+  },
+  {
+    "strategy": "semantic",
+    "rerank": true,
+    "n": 40,
+    "hit@1": 0.675,
+    "hit@4": 0.8,
+    "mrr@10": 0.7378472222222222,
+    "latency_ms": 1061.4292699992802
+  },
+  {
+    "strategy": "metadata",
+    "rerank": true,
+    "n": 40,
+    "hit@1": 0.8,
+    "hit@4": 0.975,
+    "mrr@10": 0.8758333333333332,
+    "latency_ms": 547.7887099998043
+  }
+]

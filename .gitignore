@@ -1,0 +1,9 @@
+datasets/manuals/
+datasets/processed/chroma/
+__pycache__/
+.env
+*.pyc
+datasets/tickets/
+datasets/processed/
+.venv/
+*.egg-info/

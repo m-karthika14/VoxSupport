@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoxSupport</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --mute:#667085; --line:#e4e7ec; --accent:#2563eb; --warn:#b42318; --ok:#067647; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f141b; --card:#171e28; --ink:#e7ecf3; --mute:#98a2b3; --line:#283241; --accent:#60a5fa; --warn:#f97066; --ok:#47cd89; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 120px; }
+  h1 { font-size:22px; margin:0 0 4px; } .sub { color:var(--mute); margin:0 0 20px; font-size:14px; }
+  .msg { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:12px 0; }
+  .msg.user { border-left:4px solid var(--accent); }
+  .msg .who { font-size:12px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px; }
+  .answer { white-space:pre-wrap; }
+  .esc { margin-top:10px; padding:8px 10px; border-radius:8px; background:color-mix(in srgb,var(--warn) 12%,transparent); color:var(--warn); font-size:14px; }
+  .opts { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; } button.opt { min-height:36px; padding:0 14px; border-radius:18px; }
+  .ticket { margin-top:10px; border:1px dashed var(--warn); border-radius:10px; padding:10px 12px; font-size:14px; } .tk-head { font-weight:600; margin-bottom:6px; }
+  .ticket pre { white-space:pre-wrap; font:13px/1.5 ui-monospace,monospace; margin:8px 0; } .ticket a { color:var(--accent); font-size:13px; }
+  .cites { margin-top:10px; font-size:13px; color:var(--mute); } .cites div { padding:2px 0; }
+  .meta { margin-top:8px; font-size:12px; color:var(--mute); }
+  form { position:fixed; left:0; right:0; bottom:0; background:var(--bg); border-top:1px solid var(--line); padding:12px 16px; }
+  .row { max-width:760px; margin:0 auto; display:flex; gap:8px; }
+  input[type=text] { flex:1; padding:12px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:16px; }
+  button { padding:0 16px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:15px; cursor:pointer; min-height:44px; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  button.rec { background:var(--warn); border-color:var(--warn); color:#fff; }
+  label { font-size:13px; color:var(--mute); display:flex; align-items:center; gap:4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>VoxSupport</h1>
+  <p class="sub">Voice hardware troubleshooting for Dell, HP and Lenovo laptops — answers come only from the service manuals.</p>
+  <div id="log"></div>
+</main>
+<form id="f">
+  <div class="row">
+    <button type="button" id="mic" title="Speak">🎤</button>
+    <input type="text" id="q" placeholder="Describe the hardware problem…" autocomplete="off">
+    <button class="primary" type="submit">Ask</button>
+  </div>
+  <div class="row" style="margin-top:6px;flex-wrap:wrap"><label><input type="checkbox" id="speak" checked> Read answers aloud</label><label><input type="checkbox" id="hands"> Hands-free (listen again after each answer)</label><span id="status" style="font-size:13px;color:var(--mute);margin-left:auto"></span></div>
+</form>
+<script>
+const log = document.getElementById('log'), q = document.getElementById('q');
+let sessionId = null;
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function add(role, node) {
+  const m = el('div', 'msg ' + role); m.append(el('div', 'who', role === 'user' ? 'You' : 'VoxSupport'), node);
+  log.append(m); m.scrollIntoView({behavior:'smooth', block:'end'}); return m;
+}
+const status = document.getElementById('status'), mic = document.getElementById('mic');
+const setStatus = t => status.textContent = t;
+let speaking = false, handsFree = false;
+
+function speak(text, done) {
+  if (!document.getElementById('speak').checked || !('speechSynthesis' in window)) { done && done(); return; }
+  speechSynthesis.cancel();
+  const clean = text.replace(/\[\d+\]/g, '').replace(/\bRAM\b/g,'R-A-M').replace(/\bSSD\b/g,'S-S-D').replace(/\bBIOS\b/g,'B-I-O-S');
+  const parts = clean.split(/(?<=[.!?])\s+|\n+/).map(x => x.trim()).filter(Boolean);
+  const voice = speechSynthesis.getVoices().find(v => /^en/i.test(v.lang));
+  speaking = true; setStatus('Speaking… (click 🎤 to interrupt)');
+  parts.forEach((p, i) => {
+    const u = new SpeechSynthesisUtterance(p); if (voice) u.voice = voice; u.rate = 1;
+    if (i === parts.length - 1) u.onend = u.onerror = () => { speaking = false; setStatus(''); done && done(); };
+    speechSynthesis.speak(u);
+  });
+}
+
+async function ask(text) {
+  add('user', el('div', null, text));
+  const wait = add('bot', el('div', 'answer', 'Searching the manuals…'));
+  setStatus('Thinking…');
+  try {
+    const r = await fetch('/api/ask', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({question:text, session_id:sessionId})});
+    const d = await r.json(); sessionId = d.session_id;
+    const box = el('div'); box.append(el('div', 'answer', d.answer));
+    if (d.status === 'question') {
+      box.append(el('div', 'meta', `Diagnosis · question ${d.diagnosis.step} of ${d.diagnosis.total}`));
+      const opts = el('div', 'opts');
+      (d.options || []).forEach(o => { const b = el('button', 'opt', o); b.type = 'button';
+        b.onclick = () => { opts.querySelectorAll('button').forEach(x => x.disabled = true); ask(o); }; opts.append(b); });
+      box.append(opts);
+    }
+    if (d.escalate) box.append(el('div', 'esc', '⚠ Escalate to a human technician: ' + (d.escalation_reason || '')));
+    if (d.ticket) {
+      const tk = el('div', 'ticket');
+      tk.append(el('div', 'tk-head', `🎫 Ticket ${d.ticket.id} · priority ${d.ticket.priority} · ${d.ticket.device}`));
+      const det = document.createElement('details'); det.append(el('summary', null, 'View technician summary'));
+      det.append(el('pre', null, d.ticket.markdown)); tk.append(det);
+      const a = el('a', null, '⬇ Download ticket (.md)'); a.href = '/api/tickets/' + d.ticket.id + '?format=md'; tk.append(a);
+      box.append(tk);
+    }
+    if (d.citations.length && d.status === 'ok') {
+      const c = el('div', 'cites');
+      d.citations.forEach(x => c.append(el('div', null, `[${x.n}] ${x.vendor} ${x.model} — ${x.section || 'General'}, p.${x.page}`)));
+      box.append(c);
+    }
+    box.append(el('div', 'meta', `${d.status} · ${d.mode} · ${Math.round(d.timings_ms.total||0)} ms` +
+      (d.groundedness.score != null ? ` · grounded ${(d.groundedness.score).toFixed(2)}` : '')));
+    wait.remove(); add('bot', box);
+    speak(d.answer, () => { if (handsFree) startListening(); });
+  } catch (e) { wait.querySelector('.answer').textContent = 'Could not reach the server.'; setStatus(''); }
+}
+document.getElementById('f').onsubmit = e => { e.preventDefault(); const t = q.value.trim(); if (t) { q.value=''; ask(t); } };
+
+// ---- Voice input: listens until ~1.6 s of silence, then sends. Never listens while speaking. ----
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SILENCE_MS = 1600;
+let rec = null, listening = false, finalText = '', timer = null, sent = false;
+
+function finishAndSend() {
+  clearTimeout(timer);
+  const t = (finalText + ' ' + q.value).trim();
+  sent = true;
+  if (rec) try { rec.stop(); } catch (e) {}
+  if (t) { q.value = ''; ask(t); } else setStatus('Didn’t hear anything — click 🎤 and try again.');
+}
+function startListening() {
+  if (!SR || listening) return;
+  speechSynthesis.cancel(); speaking = false;
+  rec = new SR(); rec.lang = 'en-US'; rec.continuous = true; rec.interimResults = true;
+  finalText = ''; q.value = ''; sent = false;
+  rec.onstart = () => { listening = true; mic.classList.add('rec'); setStatus('Listening… speak now'); };
+  rec.onresult = ev => {
+    let interim = '';
+    for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      const r = ev.results[i];
+      if (r.isFinal) finalText += r[0].transcript + ' '; else interim += r[0].transcript;
+    }
+    q.value = (finalText + interim).trim();
+    setStatus('Heard: “' + q.value + '” (pause to send)');
+    clearTimeout(timer); timer = setTimeout(finishAndSend, SILENCE_MS);
+  };
+  rec.onerror = ev => {
+    const m = {'not-allowed':'Microphone blocked — allow mic access for this site (lock icon in the address bar).',
+      'service-not-allowed':'Microphone blocked — allow mic access for this site.',
+      'no-speech':'No speech detected — click 🎤 and try again.',
+      'audio-capture':'No microphone found.',
+      'network':'Chrome speech recognition needs an internet connection.'}[ev.error] || ('Mic error: ' + ev.error);
+    setStatus(m); clearTimeout(timer);
+  };
+  rec.onend = () => { listening = false; mic.classList.remove('rec'); clearTimeout(timer);
+    if (!sent && q.value.trim()) finishAndSend(); };
+  try { rec.start(); } catch (e) { setStatus('Could not start the microphone.'); }
+}
+if (!SR) { mic.disabled = true; setStatus('Voice input needs Chrome or Edge. You can still type.'); }
+mic.onclick = () => {
+  if (listening) { handsFree = false; finishAndSend(); return; }
+  startListening();
+};
+document.getElementById('hands').onchange = e => { handsFree = e.target.checked; if (handsFree && !listening && !speaking) startListening(); };
+if ('speechSynthesis' in window) speechSynthesis.getVoices();
+</script>
+</body>
+</html>

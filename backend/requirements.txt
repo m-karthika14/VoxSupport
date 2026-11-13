@@ -1,0 +1,11 @@
+pymupdf
+chromadb
+sentence-transformers
+rank_bm25
+requests
+fastapi
+uvicorn
+pandas
+python-dotenv
+# optional server-side voice (legacy CLI agent)
+# faster-whisper sounddevice webrtcvad pyttsx3
