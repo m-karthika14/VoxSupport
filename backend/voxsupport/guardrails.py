@@ -61,8 +61,9 @@ SAFETY_NOTICE = ("Safety first: unplug the charger, power the device off, and do
                  "human technician.")
 
 
-def retrieval_confident(hits) -> bool:
-    return bool(hits) and hits[0].score >= config.MIN_RERANK_SCORE
+def retrieval_confident(hits, guided: bool = False) -> bool:
+    floor = config.GUIDED_MIN_RERANK if guided else config.MIN_RERANK_SCORE
+    return bool(hits) and hits[0].score >= floor
 
 
 def _sentences(text: str) -> list[str]:

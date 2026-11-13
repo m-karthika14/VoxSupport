@@ -186,7 +186,7 @@ def answer(question: str, session: Session | None = None, strategy: str | None =
         t["retrieve"] = (time.perf_counter() - ts) * 1000
         res.citations = _cites(hits)
 
-        if not gr.retrieval_confident(hits):
+        if not gr.retrieval_confident(hits, guided=bool(observations)):
             res.flags.append("low_retrieval_confidence")
             return _escalate(res, "No sufficiently relevant manual content found",
                              gr.ABSTAIN, status="abstained")

@@ -20,10 +20,11 @@ PROCEDURE = re.compile(
     r"s?|part number|mean|means|check|test|diagnostics?|update|change|reset|enter|access|open|drain residual|hard reset|residual)\b", re.I)
 
 CATEGORY_RULES = [  # order matters: first match wins
-    ("boot", r"(won'?t|doesn'?t|didn'?t|can'?t|cannot|not|isn'?t|never).{0,20}(turn(s|ing)? on|power|start|boot|switch(es|ing)? on)|no power|\bdead\b|boot (loop|fail)|stuck on|power button|restart|reboot"),
+    ("boot", r"(won'?t|doesn'?t|didn'?t|can'?t|cannot|not|isn'?t|never).{0,20}(turn(s|ing)? on|power|start|boot|switch(es|ing)? on)|no power|\bdead\b|boot (loop|fail)|stuck on|power button"),
     ("battery_power", r"charg|battery|adapter|ac power|drain"),
     ("overheating", r"overheat|too hot|very hot|\bhot\b|\bfan\b|thermal|shuts?(ting)? (down|off)"),
     ("ram", r"blue screen|memory|\bram\b|random restart|beep"),
+    ("boot", r"restart|reboot"),
     ("storage", r"hard (drive|disk)|\bssd\b|\bdisk\b|no boot device|clicking|slow|freez"),
     ("display", r"screen|display|flicker|lines|black|blank|lcd|panel"),
 ]

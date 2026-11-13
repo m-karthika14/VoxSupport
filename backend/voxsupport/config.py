@@ -50,4 +50,7 @@ DEFAULT_STRATEGY = os.getenv("VOX_STRATEGY", "metadata")
 
 # Guardrail thresholds (tuned in evaluation)
 MIN_RERANK_SCORE = float(os.getenv("VOX_MIN_RERANK", "2.0"))
+# Guided answers: symptom-style queries match procedural manual text less well, and the interview has
+# already narrowed the category, so the gate is relaxed (LLM abstention + groundedness still apply).
+GUIDED_MIN_RERANK = float(os.getenv("VOX_GUIDED_MIN_RERANK", "-6.0"))
 MIN_GROUNDED = float(os.getenv("VOX_MIN_GROUNDED", "0.35"))

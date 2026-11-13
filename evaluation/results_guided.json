@@ -1,0 +1,74 @@
+[
+ {
+  "symptom": "my laptop won't turn on",
+  "category": "boot",
+  "questions": 4,
+  "final": "ok",
+  "vendor": "Dell",
+  "section": "Power button LED behavior",
+  "page": 15,
+  "score": 5.36,
+  "grounded": 0.65,
+  "answer": "1. Verify whether the Latitude\u202f5400 unit is equipped with the optional power\u2011button/fingerprint\u2011reader module.\u202fIf it has the fingerprint reader, the power\u2011button itself has **no LED** and status is shown on the other system LEDs\u202f[4]\u202f[1].  \n\n2. Observe the other LEDs when the power button is pressed:  \n   - Check the **Power\u2011Adapter LED** (white when AC is present)\u202f[1].  \n   - Check the **Battery\u2011Indicator LED** (solid white while charging, off when on AC, solid amber if critically low)\u202f[1]\u202f[3].  \n   If none of these LEDs illuminate, the system may not be receiving power.\n\n3. Confirm that the **BIOS \u201cPower button LED\u201d option** is enabled (it can be disabled in BIOS)\u202f[1]. If disabled, the LED will remain off even though the system powers up.\n\n4. Perform a **hard power reset** again: disconnect AC adapter, remove the battery (if removable), hold the power button for\u202f\u2265\u202f15\u202fseconds, then reconnect AC only and press the power button\u202f[observations \u2013 already tried, repeat to ensure proper procedure].\n\n5. Listen for the **auditory tone** (off by default) \u2013 enable it in BIOS to get audible feedback that the power\u2011button press was registered\u202f[2]. This helps verify that the button is functional even if the LED is not lit.\n\n6. If the power\u2011button press now results in the Dell logo appearing within\u202f2\u202fseconds\u202f[2]\u202f[1] and the system boots, the issue was simply the missing/disabled LED.  \n\n7. If the system still shows no LED activity, no logo, and no beeps, the **power\u2011button circuitry or internal power\u2011delivery components** may be faulty; recommend contacting Dell hardware support for further diagnosis.  \n\n**Safety note:** Ensure the laptop is powered off and unplugged before removing the battery or opening the chassis."
+ },
+ {
+  "symptom": "my laptop is not charging",
+  "category": "battery_power",
+  "questions": 4,
+  "final": "ok",
+  "vendor": "HP",
+  "section": "Right",
+  "page": 14,
+  "score": 6.87,
+  "grounded": 0.64,
+  "answer": "1. Verify the battery\u2011light status while the AC adapter is connected.  \n   \u2013 If the light is **amber**, the battery charge is between 0\u202f% and 90\u202f% (see [1], [2]).  \n\n2. Plug the AC adapter into the USB\u2011Type\u202fC power connector port (the port that both powers the notebook and can charge the battery) and ensure the connection is firm ([2], [3]).  \n\n3. Allow the notebook to charge until the battery\u2011light changes to **white**, indicating the charge is now greater than 90\u202f% ([1], [2]).  \n\n4. After the light is white, test runtime on battery alone to confirm the battery holds charge for the expected period.  \n\n5. If the light remains **off** (battery not charging) while the adapter is connected, repeat step\u202f2 with a known\u2011good USB\u2011Type\u202fC charging cable and, if possible, a different AC adapter that meets the notebook\u2019s specifications.  \n\n6. **Safety note:** Do not disconnect power, shut down, or put the computer to Sleep while the battery is charging ([4]).  \n\n7. If the battery still does not charge after confirming the adapter and cable are functional, the battery may be defective and should be replaced according to the service manual."
+ },
+ {
+  "symptom": "my laptop is overheating",
+  "category": "overheating",
+  "questions": 4,
+  "final": "ok",
+  "vendor": "Lenovo",
+  "section": "1100 Thermal fan assembly",
+  "page": 86,
+  "score": -3.17,
+  "grounded": 0.63,
+  "answer": "1. Power\u2011off the notebook, disconnect the AC adapter and remove the battery if removable.  \n2. Remove the nano\u2011SIM card and tray (page\u202f68) then the base\u2011cover assembly (page\u202f70) to gain access to the vent area[2].  \n3. Visually inspect the air\u2011intake and exhaust vents for dust, debris or any obstruction that could block airflow.  \n4. Using a soft brush or compressed air, carefully clean the vent openings and the fan\u2011cover surface; do **not** press on the top of the fan cover or fan hub while cleaning[2][3].  \n5. Re\u2011install the base\u2011cover assembly, ensuring it is firmly attached so the battery connector remains secure[3].  \n6. Re\u2011connect the battery, power on the system and verify that fan noise is reduced and temperatures return to normal.  \n\n**Warning:** When handling the fan assembly, avoid pressing the top of the fan cover and fan hub, and ensure all connectors are firmly attached to prevent thermal problems[2][3]."
+ },
+ {
+  "symptom": "laptop is randomly restarting with blue screens",
+  "category": "ram",
+  "questions": 4,
+  "final": "escalate",
+  "vendor": "Dell",
+  "section": "Recovering the operating system",
+  "page": 145,
+  "score": -5.05,
+  "grounded": 0.55,
+  "answer": "I could not find that in the available manuals. A technician should review this."
+ },
+ {
+  "symptom": "my laptop is slow and freezing",
+  "category": "storage",
+  "questions": 4,
+  "final": "escalate",
+  "vendor": "HP",
+  "section": "Solid-state drive",
+  "page": 51,
+  "score": -0.47,
+  "grounded": 0.55,
+  "answer": "I could not find that in the available manuals. A technician should review this."
+ },
+ {
+  "symptom": "my laptop screen is flickering",
+  "category": "display",
+  "questions": 4,
+  "final": "ok",
+  "vendor": "Lenovo",
+  "section": "LCD-related symptoms",
+  "page": 44,
+  "score": 2.6,
+  "grounded": 0.69,
+  "answer": "1. Run the LCD Self Test to verify that the panel itself can display solid colors without flicker.\u202fPress Fn\u202f+\u202fLeft\u202fCtrl\u202f+\u202fPower and watch for the five\u2011color sequence.\u202fIf the test runs cleanly, the LCD hardware is likely OK.\u202f[1][3]  \n\n2. Power off, disconnect AC, and reseat all LCD connectors (video cable, backlight cable, and any flex connectors) to ensure a tight connection.\u202f[2][3]  \n\n3. If the flicker persists after reseating, replace the LCD assembly, as intermittent display issues are resolved by a new panel.\u202f[2]  \n\n**Warning:** Lenovo will not provide a warranty replacement if the LCD is still within specifications, because pixel defects cannot be guaranteed to be zero.\u202f[1]"
+ }
+]

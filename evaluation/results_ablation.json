@@ -1,0 +1,338 @@
+[
+  {
+    "method": "dense",
+    "strategy": "fixed",
+    "hit@1": 0.675,
+    "hit@4": 0.9,
+    "mrr@10": 0.7648214285714285,
+    "latency_ms": 71.67039249943628,
+    "hit@4_by_vendor": {
+      "Dell": 0.875,
+      "HP": 1.0,
+      "Lenovo": 0.8333333333333334
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.625,
+      "ram": 0.75,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "dense",
+    "strategy": "overlap",
+    "hit@1": 0.65,
+    "hit@4": 0.9,
+    "mrr@10": 0.7738492063492063,
+    "latency_ms": 40.129367498957436,
+    "hit@4_by_vendor": {
+      "Dell": 0.875,
+      "HP": 0.9166666666666666,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 0.75,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 0.8461538461538461
+    }
+  },
+  {
+    "method": "dense",
+    "strategy": "semantic",
+    "hit@1": 0.575,
+    "hit@4": 0.825,
+    "mrr@10": 0.7006944444444445,
+    "latency_ms": 35.43757750048826,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.75,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 0.25,
+      "storage": 0.8,
+      "overheating": 0.8,
+      "display": 1.0,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "dense",
+    "strategy": "metadata",
+    "hit@1": 0.875,
+    "hit@4": 1.0,
+    "mrr@10": 0.9333333333333333,
+    "latency_ms": 36.29032750031911,
+    "hit@4_by_vendor": {
+      "Dell": 1.0,
+      "HP": 1.0,
+      "Lenovo": 1.0
+    },
+    "hit@4_by_category": {
+      "battery_power": 1.0,
+      "ram": 1.0,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "bm25",
+    "strategy": "fixed",
+    "hit@1": 0.45,
+    "hit@4": 0.725,
+    "mrr@10": 0.5870833333333334,
+    "latency_ms": 4.435469998497865,
+    "hit@4_by_vendor": {
+      "Dell": 0.75,
+      "HP": 0.5833333333333334,
+      "Lenovo": 0.8333333333333334
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.625,
+      "ram": 0.5,
+      "storage": 0.6,
+      "overheating": 1.0,
+      "display": 0.8,
+      "boot": 0.7692307692307693
+    }
+  },
+  {
+    "method": "bm25",
+    "strategy": "overlap",
+    "hit@1": 0.325,
+    "hit@4": 0.775,
+    "mrr@10": 0.5044444444444445,
+    "latency_ms": 5.234542499965755,
+    "hit@4_by_vendor": {
+      "Dell": 0.75,
+      "HP": 0.6666666666666666,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.625,
+      "ram": 0.5,
+      "storage": 0.6,
+      "overheating": 1.0,
+      "display": 0.8,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "bm25",
+    "strategy": "semantic",
+    "hit@1": 0.375,
+    "hit@4": 0.675,
+    "mrr@10": 0.5129464285714286,
+    "latency_ms": 5.423790000349982,
+    "hit@4_by_vendor": {
+      "Dell": 0.5625,
+      "HP": 0.75,
+      "Lenovo": 0.75
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.625,
+      "ram": 0.25,
+      "storage": 0.6,
+      "overheating": 0.6,
+      "display": 0.6,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "bm25",
+    "strategy": "metadata",
+    "hit@1": 0.65,
+    "hit@4": 0.9,
+    "mrr@10": 0.7588095238095238,
+    "latency_ms": 5.252882500644773,
+    "hit@4_by_vendor": {
+      "Dell": 1.0,
+      "HP": 0.75,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 0.75,
+      "storage": 0.8,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "hybrid",
+    "strategy": "fixed",
+    "hit@1": 0.675,
+    "hit@4": 0.85,
+    "mrr@10": 0.7579166666666667,
+    "latency_ms": 42.760599999382976,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.8333333333333334,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.75,
+      "ram": 0.5,
+      "storage": 0.8,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "hybrid",
+    "strategy": "overlap",
+    "hit@1": 0.575,
+    "hit@4": 0.875,
+    "mrr@10": 0.7171428571428572,
+    "latency_ms": 38.76311249987339,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.9166666666666666,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.75,
+      "ram": 0.5,
+      "storage": 0.8,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "hybrid",
+    "strategy": "semantic",
+    "hit@1": 0.575,
+    "hit@4": 0.825,
+    "mrr@10": 0.6994444444444444,
+    "latency_ms": 36.15382500029227,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.75,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 0.25,
+      "storage": 0.8,
+      "overheating": 0.6,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "hybrid",
+    "strategy": "metadata",
+    "hit@1": 0.875,
+    "hit@4": 1.0,
+    "mrr@10": 0.9333333333333333,
+    "latency_ms": 25.718462501390604,
+    "hit@4_by_vendor": {
+      "Dell": 1.0,
+      "HP": 1.0,
+      "Lenovo": 1.0
+    },
+    "hit@4_by_category": {
+      "battery_power": 1.0,
+      "ram": 1.0,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "hybrid+rerank",
+    "strategy": "fixed",
+    "hit@1": 0.65,
+    "hit@4": 0.875,
+    "mrr@10": 0.7322916666666667,
+    "latency_ms": 1752.5213975000952,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.9166666666666666,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.75,
+      "ram": 0.5,
+      "storage": 0.8,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "hybrid+rerank",
+    "strategy": "overlap",
+    "hit@1": 0.65,
+    "hit@4": 0.9,
+    "mrr@10": 0.7717261904761905,
+    "latency_ms": 1667.6722675001656,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 1.0,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.75,
+      "ram": 0.5,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  },
+  {
+    "method": "hybrid+rerank",
+    "strategy": "semantic",
+    "hit@1": 0.675,
+    "hit@4": 0.8,
+    "mrr@10": 0.7378472222222222,
+    "latency_ms": 1208.4048299999267,
+    "hit@4_by_vendor": {
+      "Dell": 0.8125,
+      "HP": 0.75,
+      "Lenovo": 0.8333333333333334
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 0.25,
+      "storage": 0.8,
+      "overheating": 0.8,
+      "display": 0.8,
+      "boot": 0.9230769230769231
+    }
+  },
+  {
+    "method": "hybrid+rerank",
+    "strategy": "metadata",
+    "hit@1": 0.8,
+    "hit@4": 0.975,
+    "mrr@10": 0.8758333333333332,
+    "latency_ms": 1196.9847249987652,
+    "hit@4_by_vendor": {
+      "Dell": 1.0,
+      "HP": 1.0,
+      "Lenovo": 0.9166666666666666
+    },
+    "hit@4_by_category": {
+      "battery_power": 0.875,
+      "ram": 1.0,
+      "storage": 1.0,
+      "overheating": 1.0,
+      "display": 1.0,
+      "boot": 1.0
+    }
+  }
+]
